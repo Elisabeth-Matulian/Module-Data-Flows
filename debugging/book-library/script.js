@@ -53,34 +53,26 @@ function Book(title, author, pages, check) {
 
 function render() {
   let tableDisplay = document.getElementById("display");
-  let rowsNumber = tableDisplay.rows.length;
   //delete old table
-  for (let n = rowsNumber - 1; n > 0; n--) {
-    tableDisplay.deleteRow(n);
-  }
+  document.querySelector('#display tbody').innerHTML = "";
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    let row = tableDisplay.insertRow(1);
-    let titleCell = row.insertCell(0);
-    let authorCell = row.insertCell(1);
-    let pagesCell = row.insertCell(2);
-    let wasReadCell = row.insertCell(3);
-    let deleteCell = row.insertCell(4);
+    const row = tableDisplay.insertRow(1);
+    const titleCell = row.insertCell(0);
+    const authorCell = row.insertCell(1);
+    const pagesCell = row.insertCell(2);
+    const wasReadCell = row.insertCell(3);
+    const deleteCell = row.insertCell(4);
     titleCell.textContent = myLibrary[i].title;
     authorCell.textContent = myLibrary[i].author;
     pagesCell.textContent = myLibrary[i].pages;
 
     //add and wait for action for read/unread button
-    let changeBtn = document.createElement("button");
+    const changeBtn = document.createElement("button");
     changeBtn.className = "btn btn-success";
     wasReadCell.appendChild(changeBtn);
-    let readStatus = "";
-    if (myLibrary[i].check === false) {
-      readStatus = "No";
-    } else {
-      readStatus = "Yes";
-    }
+    const readStatus = myLibrary[i].check === false ? "No" : "Yes";
     changeBtn.innerText = readStatus;
 
     changeBtn.addEventListener("click", function () {
@@ -89,14 +81,15 @@ function render() {
     });
 
     //add delete button to every row and render again
-    let deleteBtn = document.createElement("button");
+    const deleteBtn = document.createElement("button");
     deleteCell.appendChild(deleteBtn);
     deleteBtn.className = "btn btn-warning";
     deleteBtn.innerHTML = "Delete";
     deleteBtn.addEventListener("click", function () {
+      const deletedBook = myLibrary[i].title;
       myLibrary.splice(i, 1);
       render();
-      alert(`You've deleted title: ${myLibrary[i].title}`);
+      alert(`You've deleted title: ${deletedBook}`);
     });
   }
 }
