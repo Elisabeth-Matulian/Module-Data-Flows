@@ -28,15 +28,17 @@ const check = document.getElementById("check");
 //via Book function and start render function
 function submit() {
   if (
-    //inputTitle.value == null ||
-    inputTitle.value == "" ||
-    //inputPages.value == null ||
-    inputPages.value == ""
+    inputTitle.value.trim() == "" ||
+    inputAuthor.value.trim() == "" ||
+    inputPages.value.trim() == "" ||
+    Number(inputPages.value) <= 0 ||
+    Number(inputPages.value) > 5000
+
   ) {
-    alert("Please fill all fields!");
+    alert("Please check your input!");
     return false;
   } else {
-    let book = new Book(inputTitle.value, inputAuthor.value, Number(inputPages.value), check.checked);
+    let book = new Book(inputTitle.value.trim(), inputAuthor.value.trim(), Number(inputPages.value.trim()), check.checked);
     myLibrary.push(book);
     render();
   }
@@ -71,7 +73,6 @@ function render() {
 
     //add and wait for action for read/unread button
     let changeBtn = document.createElement("button");
-    //changeBtn.id = i;
     changeBtn.className = "btn btn-success";
     wasReadCell.appendChild(changeBtn);
     let readStatus = "";
@@ -89,7 +90,6 @@ function render() {
 
     //add delete button to every row and render again
     let deleteBtn = document.createElement("button");
-    //deleteBtn.id = i + 5;
     deleteCell.appendChild(deleteBtn);
     deleteBtn.className = "btn btn-warning";
     deleteBtn.innerHTML = "Delete";
