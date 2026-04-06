@@ -27,18 +27,22 @@ const check = document.getElementById("check");
 //check the right input from forms and if its ok -> add the new book (object in array)
 //via Book function and start render function
 function submit() {
-  if (
-    inputTitle.value.trim() == "" ||
-    inputAuthor.value.trim() == "" ||
-    inputPages.value.trim() == "" ||
-    Number(inputPages.value) <= 0 ||
-    Number(inputPages.value) > 5000
+  const pages = Number(inputPages.value);
+  const title = inputTitle.value.trim();
+  const author = inputAuthor.value.trim();
 
+  if (
+    title == "" ||
+    author == "" ||
+    inputPages.value.trim() == "" ||
+    pages <= 0 ||
+    pages > 5000 || 
+    !Number.isInteger(pages)
   ) {
     alert("Please check your input!");
     return false;
   } else {
-    let book = new Book(inputTitle.value.trim(), inputAuthor.value.trim(), Number(inputPages.value.trim()), check.checked);
+    let book = new Book(title, author, pages, check.checked);
     myLibrary.push(book);
     render();
   }
@@ -52,13 +56,13 @@ function Book(title, author, pages, check) {
 }
 
 function render() {
-  let tableDisplay = document.getElementById("display");
+  let tableBody = document.querySelector("#display tbody");
   //delete old table
-  document.querySelector('#display tbody').innerHTML = "";
+  tableBody.innerHTML = "";
   //insert updated row and cells
   let length = myLibrary.length;
   for (let i = 0; i < length; i++) {
-    const row = tableDisplay.insertRow(1);
+    const row = tableBody.insertRow(0);
     const titleCell = row.insertCell(0);
     const authorCell = row.insertCell(1);
     const pagesCell = row.insertCell(2);
