@@ -5,5 +5,5 @@ fetch(url)
     .then((response) => response.json())
     .then((data) => image.src = data.img)
     .catch((error) => { 
-        throw(error)
+        console.log(error)
     });
