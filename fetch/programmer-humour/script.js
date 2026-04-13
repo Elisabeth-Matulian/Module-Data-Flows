@@ -1,4 +1,6 @@
 const url = "https://xkcd.now.sh/?comic=latest";
+const image = document.getElementById("image");
+
 fetch(url)
     .then((response) => response.json())
-    .then((data) => console.log(data));
+    .then((data) => image.src = data.img);
