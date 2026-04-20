@@ -3,7 +3,10 @@ const image = document.getElementById("image");
 
 fetch(url)
     .then((response) => response.json())
-    .then((data) => image.src = data.img)
+    .then((data) => {
+        image.src = data.img;
+        console.log(data);
+    })
     .catch((error) => { 
         console.log(error)
     });
